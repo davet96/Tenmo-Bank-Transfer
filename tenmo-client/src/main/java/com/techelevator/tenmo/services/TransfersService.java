@@ -11,7 +11,14 @@ public class TransfersService {
     private String baseUrl;
     private RestTemplate restTemplate = new RestTemplate();
     private AuthenticatedUser currentUser;
+
+
+    public TransfersService(String url, AuthenticatedUser currentUser){
+        this.baseUrl = url;
+        this.currentUser = currentUser;
 }
+
+
 
     private HttpEntity makeAuthEntity() {
         HttpHeaders headers = new HttpHeaders();
@@ -20,10 +27,6 @@ public class TransfersService {
         return entity;
     }
 
-    public Transfers getTransfer() {
-
-
-    }
 
 
 
