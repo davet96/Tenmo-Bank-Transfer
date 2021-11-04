@@ -43,13 +43,19 @@ public class JdbcTransfersDao implements TransfersDao{
 
     @Override
     public void sendBucks(Account accountFrom, Account accountTo, BigDecimal amount){
-
-        String sql = "INSERT INTO transfers (transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
-                "Values (default, 2, 2, ?, ?, ?);";
-
-       jdbcTemplate.update(sql,accountFrom.getAccount_id(), accountTo.getAccount_id(), amount);
-
+        if(accountFrom == accountTo) {
+            System.out.println("Cannot transfer money to the same account.");
+        }
+        if(amount.compareTo(accountFrom.getBalance()) > 0 && amount.compareTo(new BigDecimal(0)) ==1) {
+            String sql = "INSERT INTO transfers (transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
+                    "Values (default, 2, 2, ?, ?, ?);";
+            jdbcTemplate.update(sql, accountFrom.getAccount_id(), accountTo.getAccount_id(), amount);
+            System.out.println("Transfer of Funds is complete.");
+        } else {
+            System.out.println("There was an error processing the transfer.");
+        }
     }
+
 
     private Transfers mapRowTransfers(SqlRowSet rs){
         Transfers transfers = new Transfers();

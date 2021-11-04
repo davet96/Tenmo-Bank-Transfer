@@ -12,4 +12,5 @@ public interface TransfersDao {
 
     public List<Transfers> getTransferHistory(Long transferId);
     public void sendBucks(Account accountFrom, Account accountTo, BigDecimal amount);
+
 }

@@ -32,12 +32,12 @@ public class BalanceService {
 
     public Account getBalance() {
         Account account = null;
-       // try {
+        try {
             account = restTemplate.exchange(baseUrl + "accounts/user/" + currentUser.getUser().getUsername(), HttpMethod.GET, makeAuthEntity(), Account.class).getBody();
             System.out.println("Your account balance is: $" + account.getBalance());
-      //  } catch (Exception e) {
-        //    System.out.println("Error");
-      //  }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
         return account;
     }
 

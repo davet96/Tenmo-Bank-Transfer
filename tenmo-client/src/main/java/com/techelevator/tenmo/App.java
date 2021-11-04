@@ -76,18 +76,22 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void viewCurrentBalance() {
 		// TODO Auto-generated method stub
-		//try{
+		try{
 			Account account = balanceService.getBalance();
-		//} catch (Exception e) {
-			//System.out.println("Error");
-	//	}
+		} catch (Exception e) {
+			System.out.println("Error with getting balance.");
+		}
 		
 	}
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
+		try{
 		Transfers transfers = transfersService.getTransferHistory();
-	}
+	} catch (Exception e) {
+			System.out.println("Error with getting transfer history");
+		}
+    }
 
 	private void viewPendingRequests() {
 		// TODO Auto-generated method stub
@@ -102,7 +106,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		// logic for transfers to happen
 		// enough money, if list contains account to be sent to
 		//
-		//Transfers transfers = transfersService.sendBucks();
+		//Transfers transfers = transfersService.sendBucks(Transfers transfer);
 	}
 
 	private void requestBucks() {

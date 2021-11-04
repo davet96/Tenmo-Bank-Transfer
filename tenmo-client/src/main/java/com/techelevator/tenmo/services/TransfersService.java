@@ -19,8 +19,6 @@ public class TransfersService {
         this.currentUser = currentUser;
 }
 
-
-
     private HttpEntity makeAuthEntity() {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(currentUser.getToken());
@@ -41,6 +39,7 @@ public class TransfersService {
         restTemplate.exchange( baseUrl + "transfers/make_transfer/" , HttpMethod.POST,entity, String.class);
 
     }
+
 
 
 }

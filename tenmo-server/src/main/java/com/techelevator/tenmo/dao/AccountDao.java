@@ -10,4 +10,5 @@ public interface AccountDao {
 
     public void deposit(Account account, BigDecimal amount);
     public void withdraw(Account account, BigDecimal amount);
+
 }
