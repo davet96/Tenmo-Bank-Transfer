@@ -8,21 +8,26 @@ public class Transfers {
     private Long transfer_id;
     private Long transfer_type_id;
     private Long transfer_status_id;
-    private Long account_from;
-    private Long account_to;
+    private Long accountFromId;
+    private Long accountToId;
     private BigDecimal amount;
+    private Account accountFrom;
+    private Account accountTo;
+
 
 
     public Transfers() {
     }
 
-    public Transfers(Long transfer_id, Long transfer_type_id, Long transfer_status_id, Long account_from, Long account_to, BigDecimal amount) {
+    public Transfers(Long transfer_id, Long transfer_type_id, Long transfer_status_id, Long account_from, Long accountToId, BigDecimal amount, Account accountFrom, Account accountTo) {
         this.transfer_id = transfer_id;
         this.transfer_type_id = transfer_type_id;
         this.transfer_status_id = transfer_status_id;
-        this.account_from = account_from;
-        this.account_to = account_to;
+        this.accountFromId = account_from;
+        this.accountToId = accountToId;
         this.amount = amount;
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
     }
 
     public Long getTransfer_id() {
@@ -50,19 +55,19 @@ public class Transfers {
     }
 
     public Long getAccount_from() {
-        return account_from;
+        return accountFromId;
     }
 
     public void setAccount_from(Long account_from) {
-        this.account_from = account_from;
+        this.accountFromId = account_from;
     }
 
-    public Long getAccount_to() {
-        return account_to;
+    public Long getAccountToId() {
+        return accountToId;
     }
 
-    public void setAccount_to(Long account_to) {
-        this.account_to = account_to;
+    public void setAccountToId(Long accountToId) {
+        this.accountToId = accountToId;
     }
 
     public BigDecimal getAmount() {
@@ -73,4 +78,27 @@ public class Transfers {
         this.amount = amount;
     }
 
+    public Long getAccountFromId() {
+        return accountFromId;
+    }
+
+    public void setAccountFromId(Long accountFromId) {
+        this.accountFromId = accountFromId;
+    }
+
+    public Account getAccountFrom() {
+        return accountFrom;
+    }
+
+    public void setAccountFrom(Account accountFrom) {
+        this.accountFrom = accountFrom;
+    }
+
+    public Account getAccountTo() {
+        return accountTo;
+    }
+
+    public void setAccountTo(Account accountTo) {
+        this.accountTo = accountTo;
+    }
 }

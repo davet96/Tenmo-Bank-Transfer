@@ -10,6 +10,11 @@ import com.techelevator.tenmo.services.BalanceService;
 import com.techelevator.tenmo.services.TransfersService;
 import com.techelevator.view.ConsoleService;
 
+import javax.security.auth.login.AccountException;
+import javax.swing.text.html.parser.Entity;
+import java.math.BigDecimal;
+import java.util.List;
+
 public class App {
 
 private static final String API_BASE_URL = "http://localhost:8080/";
@@ -31,6 +36,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
     private AuthenticationService authenticationService;
     private BalanceService balanceService;
     private TransfersService transfersService;
+	private List<Account> accountList;
 
     public static void main(String[] args) {
     	App app = new App(new ConsoleService(System.in, System.out), new AuthenticationService(API_BASE_URL));
@@ -49,6 +55,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		
 		registerAndLogin();
 		this.balanceService = new BalanceService(API_BASE_URL, currentUser);
+		accountList = balanceService.getListOfUserAccounts();
 		mainMenu();
 	}
 
@@ -99,14 +106,31 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	}
 
 	private void sendBucks() {
-		// TODO Auto-generated method stub
-		// display list of users
-		//make method in console service
-		// opt out current user in display method
-		// logic for transfers to happen
-		// enough money, if list contains account to be sent to
-		//
-		//Transfers transfers = transfersService.sendBucks(Transfers transfer);
+
+		console.displayOtherUsers(accountList, currentUser.getUser().getUsername());
+		// get userId
+		long userIdInput = console.getTransferUserId();
+		// get amount
+		BigDecimal transferAmount = console.getTransferAmount();
+		// create account from
+		Account accountFrom = filterAccountByUserId(currentUser.getUser().getId(), accountList);
+		if(accountFrom.getBalance().subtract(transferAmount).compareTo(BigDecimal.ZERO) < 0){
+			console.insufficientFundInput();
+			return;
+		}else{
+			Account accountTo = filterAccountByUserId((int)userIdInput, accountList);
+				if(!accountList.contains(accountTo)){
+					console.incorrectUserId();
+					return;
+				}
+				Transfers transfer = new Transfers();
+				transfer.setAmount(transferAmount);
+				transfer.setAccountTo(accountTo);
+				transfer.setAccountFrom(accountFrom);
+				transfersService.sendBucks(transfer);
+
+		}
+
 	}
 
 	private void requestBucks() {
@@ -172,5 +196,15 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		String username = console.getUserInput("Username");
 		String password = console.getUserInput("Password");
 		return new UserCredentials(username, password);
+	}
+
+	private Account filterAccountByUserId(int userId, List<Account> accountList){
+    	Account account = null;
+    	for (Account filter : accountList){
+    		if(filter.getUser_id() == userId){
+    			account = filter;
+			}
+		}
+    	return account;
 	}
 }

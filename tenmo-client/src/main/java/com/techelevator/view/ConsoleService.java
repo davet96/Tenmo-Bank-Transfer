@@ -1,9 +1,13 @@
 package com.techelevator.view;
 
 
+import com.techelevator.tenmo.model.Account;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleService {
@@ -72,5 +76,51 @@ public class ConsoleService {
 			}
 		} while(result == null);
 		return result;
+	}
+
+	public void displayOtherUsers(List<Account> users, String username) {
+		out.println("-------------------------------------------");
+		out.println("Users");
+		out.printf("%-30s", "ID");
+		out.printf("%-10s", "Name");
+		out.println();
+		out.println("-------------------------------------------");
+
+		for (int i = 0; i < users.size(); i++) {
+			if (!users.get(i).getUsername().equals(username)) {
+				out.printf("%-30s", users.get(i).getUser_id());
+				out.printf("%-10s ", users.get(i).getUsername());
+				out.println();
+			}
+
+		}
+		out.println("-------------------------------------------");
+		out.flush();
+
+	}
+	public long getTransferUserId(){
+		out.println("Id of user you want to send to");
+		long userIdChoice = Long.parseLong(in.nextLine());
+		out.flush();
+		return userIdChoice;
+	}
+
+	public BigDecimal getTransferAmount(){
+		out.println("Enter Amount: ");
+		Double transferAmount = Double.parseDouble(in.nextLine());
+		BigDecimal amount = new BigDecimal(transferAmount);
+		out.flush();
+		return amount;
+	}
+	public void insufficientFundInput(){
+		out.println();
+		out.println(" *** Not enough funds available. Please try again! *** ");
+		out.flush();
+	}
+
+	public void incorrectUserId() {
+		out.println();
+		out.println(" *** User ID does not exist! *** ");
+		out.flush();
 	}
 }

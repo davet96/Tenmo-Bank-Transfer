@@ -3,12 +3,15 @@ package com.techelevator.tenmo.services;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.AuthenticatedUser;
 import com.techelevator.tenmo.model.User;
+import io.cucumber.java.en_old.Ac;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 public class BalanceService {
 
@@ -39,6 +42,11 @@ public class BalanceService {
             System.out.println("Error");
         }
         return account;
+    }
+
+    public List<Account> getListOfUserAccounts(){
+       Account[] getUserList = restTemplate.exchange(baseUrl + "accounts", HttpMethod.GET, makeAuthEntity(), Account[].class).getBody();
+     return Arrays.asList(getUserList);
     }
 
 
