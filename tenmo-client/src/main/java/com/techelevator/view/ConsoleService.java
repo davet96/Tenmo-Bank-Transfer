@@ -88,7 +88,7 @@ public class ConsoleService {
 
 		for (int i = 0; i < users.size(); i++) {
 			if (!users.get(i).getUsername().equals(username)) {
-				out.printf("%-30s", users.get(i).getUser_id());
+				out.printf("%-30s", users.get(i).getUserId());
 				out.printf("%-10s ", users.get(i).getUsername());
 				out.println();
 			}

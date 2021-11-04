@@ -29,7 +29,7 @@ public class TransfersService {
     public Transfers getTransferHistory(){
         Transfers transfers = null;
              transfers = restTemplate.exchange( baseUrl + "transfers/" + currentUser.getUser().getUsername(), HttpMethod.GET, makeAuthEntity(), Transfers.class).getBody();
-            System.out.println("Your transfer history is: " + transfers.getTransfer_id());
+            System.out.println("Your transfer history is: " + transfers.getTransferId());
 
                 return transfers;
     }

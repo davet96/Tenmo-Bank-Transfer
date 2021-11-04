@@ -47,7 +47,11 @@ public class JdbcTransfersDao implements TransfersDao{
             String sql = "INSERT INTO transfers (transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
                     "Values (default, 2, 2, ?, ?, ?);";
             jdbcTemplate.update(sql, accountFrom.getAccountId(), accountTo.getAccountId(), amount);
-            System.out.println("Transfer of Funds is complete.");
+
+            accountDao.deposit(accountTo, amount);
+            accountDao.withdraw(accountFrom, amount);
+
+        //System.out.println("Transfer of Funds is complete.");
 
     }
 

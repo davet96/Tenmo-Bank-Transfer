@@ -10,8 +10,6 @@ import com.techelevator.tenmo.services.BalanceService;
 import com.techelevator.tenmo.services.TransfersService;
 import com.techelevator.view.ConsoleService;
 
-import javax.security.auth.login.AccountException;
-import javax.swing.text.html.parser.Entity;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -56,6 +54,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		registerAndLogin();
 		this.balanceService = new BalanceService(API_BASE_URL, currentUser);
 		accountList = balanceService.getListOfUserAccounts();
+		this.transfersService = new TransfersService(API_BASE_URL, currentUser);
 		mainMenu();
 	}
 
@@ -114,7 +113,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		BigDecimal transferAmount = console.getTransferAmount();
 		// create account from
 		Account accountFrom = filterAccountByUserId(currentUser.getUser().getId(), accountList);
-		if(accountFrom.getBalance().subtract(transferAmount).compareTo(BigDecimal.ZERO) < 0){
+		if((accountFrom.getBalance().subtract(transferAmount).compareTo(BigDecimal.ZERO)) < 0){
 			console.insufficientFundInput();
 			return;
 		}else{
@@ -201,7 +200,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	private Account filterAccountByUserId(int userId, List<Account> accountList){
     	Account account = null;
     	for (Account filter : accountList){
-    		if(filter.getUser_id() == userId){
+    		if(filter.getUserId() == userId){
     			account = filter;
 			}
 		}

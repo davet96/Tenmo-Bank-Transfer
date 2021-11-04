@@ -21,7 +21,7 @@ public class TransfersController {
         List<Transfers>  transfers  = dao.getTransferHistory(transfer_id);
     return transfers;}
 
-    @RequestMapping(path = "transfers/make_transfer/", method = RequestMethod.PUT)
+    @RequestMapping(path = "transfers/make_transfer/", method = RequestMethod.POST)
     public void sendBucks(@RequestBody Transfers transfer ){
         dao.sendBucks(transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
 
