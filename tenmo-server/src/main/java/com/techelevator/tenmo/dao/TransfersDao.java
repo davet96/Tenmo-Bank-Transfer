@@ -9,4 +9,5 @@ public interface TransfersDao {
 
 
     public List<Transfers> getTransferHistory(Long transfer_id);
+    public List<Transfers> sendBucks(Long account_id);
 }

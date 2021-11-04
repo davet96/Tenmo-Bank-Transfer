@@ -36,6 +36,23 @@ public class JdbcTransfersDao implements TransfersDao{
         return transfers;
     }
 
+    @Override
+    public List<Transfers> sendBucks(Long account_id){
+        List<Transfers> sendBucks = new ArrayList<>();
+        String sql = "UPDATE balance " +
+                "From accounts" +
+                "Join account_id ON accounts.account_id = transfers.account_from" +
+                "Join account_id ON accounts.account_id = transfers.account_to" +
+                "Join transfer_types ON transfer_type.transfer_type_id = transfers.transfer_type_id" +
+                "Where account_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, account_id);
+        while (results.next()){
+            Transfers newSend = mapRowTransfers(results);
+            sendBucks.add(newSend);
+        }
+        return sendBucks;
+    }
+
     private Transfers mapRowTransfers(SqlRowSet rs){
         Transfers transfers = new Transfers();
        transfers.setTransfer_id(rs.getLong("transfer_id"));

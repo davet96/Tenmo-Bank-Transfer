@@ -23,6 +23,7 @@ public class Transfers {
         this.amount = amount;
     }
 
+
     public Long getTransfer_id() {
         return transfer_id;
     }

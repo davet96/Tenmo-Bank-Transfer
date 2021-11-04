@@ -23,4 +23,12 @@ public class TransfersController {
     public List<Transfers>  getTransfers(@PathVariable Long transfer_id){
         List<Transfers>  transfers  = dao.getTransferHistory(transfer_id);
     return transfers;}
+
+    @RequestMapping(path = "transfers/{account_id}", method = RequestMethod.PUT)
+    public List<Transfers> sendBucks(@PathVariable Long account_id){
+        List<Transfers> sendBucks = dao.sendBucks(account_id);
+        return sendBucks;
+    }
+
+
 }

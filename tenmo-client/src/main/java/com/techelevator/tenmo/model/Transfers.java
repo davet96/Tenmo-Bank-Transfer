@@ -72,4 +72,5 @@ public class Transfers {
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
+
 }
