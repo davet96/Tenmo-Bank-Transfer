@@ -2,10 +2,12 @@ package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.Transfers;
 import com.techelevator.tenmo.model.UserCredentials;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
 import com.techelevator.tenmo.services.BalanceService;
+import com.techelevator.tenmo.services.TransfersService;
 import com.techelevator.view.ConsoleService;
 
 public class App {
@@ -28,6 +30,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
     private ConsoleService console;
     private AuthenticationService authenticationService;
     private BalanceService balanceService;
+    private TransfersService transfersService;
 
     public static void main(String[] args) {
     	App app = new App(new ConsoleService(System.in, System.out), new AuthenticationService(API_BASE_URL));
@@ -83,7 +86,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-		
+		Transfers transfers = transfersService.getTransferHistory();
 	}
 
 	private void viewPendingRequests() {
@@ -93,7 +96,13 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void sendBucks() {
 		// TODO Auto-generated method stub
-		
+		// display list of users
+		//make method in console service
+		// opt out current user in display method
+		// logic for transfers to happen
+		// enough money, if list contains account to be sent to
+		//
+		//Transfers transfers = transfersService.sendBucks();
 	}
 
 	private void requestBucks() {

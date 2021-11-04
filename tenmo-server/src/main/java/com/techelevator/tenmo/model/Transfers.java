@@ -3,65 +3,69 @@ package com.techelevator.tenmo.model;
 import java.math.BigDecimal;
 
 public class Transfers {
-    private Long transfer_id;
-    private Long transfer_type_id;
-    private Long transfer_status_id;
-    private Long account_from;
-    private Long account_to;
+    private Long transferId;
+    private Long transferTypeId;
+    private Long transferStatusId;
+    private Account accountFrom;
+    private Account accountTo;
     private BigDecimal amount;
+    private Long accountToId;
+    private Long accountFromId;
 
 
     public Transfers() {
     }
 
-    public Transfers(Long transfer_id, Long transfer_type_id, Long transfer_status_id, Long account_from, Long account_to, BigDecimal amount) {
-        this.transfer_id = transfer_id;
-        this.transfer_type_id = transfer_type_id;
-        this.transfer_status_id = transfer_status_id;
-        this.account_from = account_from;
-        this.account_to = account_to;
+    public Transfers(Long transferId, Long transferTypeId, Long transferStatusId, Account accountFrom, Account accountTo, BigDecimal amount, Long accountToId, Long accountFromId) {
+        this.transferId = transferId;
+        this.transferTypeId = transferTypeId;
+        this.transferStatusId = transferStatusId;
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
         this.amount = amount;
+        this.accountFromId = accountFromId;
+        this.accountToId = accountToId;
     }
 
 
-    public Long getTransfer_id() {
-        return transfer_id;
+    public Long getTransferId() {
+        return transferId;
     }
 
-    public void setTransfer_id(Long transfer_id) {
-        this.transfer_id = transfer_id;
+    public void setTransferId(Long transferId) {
+        this.transferId = transferId;
     }
 
-    public Long getTransfer_type_id() {
-        return transfer_type_id;
+    public Long getTransferTypeId() {
+        return transferTypeId;
     }
 
-    public void setTransfer_type_id(Long transfer_type_id) {
-        this.transfer_type_id = transfer_type_id;
+    public void setTransferTypeId(Long transferTypeId) {
+        this.transferTypeId = transferTypeId;
     }
 
-    public Long getTransfer_status_id() {
-        return transfer_status_id;
+    public Long getTransferStatusId() {
+        return transferStatusId;
     }
 
-    public void setTransfer_status_id(Long transfer_status_id) {
-        this.transfer_status_id = transfer_status_id;
+    public void setTransferStatusId(Long transferStatusId) {
+        this.transferStatusId = transferStatusId;
     }
 
-    public Long getAccount_from() {
-        return account_from;
+    public Account getAccountFrom() {
+        return accountFrom;
     }
 
-    public void setAccount_from(Long account_from) {
-        this.account_from = account_from;
+    public void setAccountFrom(Account accountFrom) {
+        this.accountFrom = accountFrom;
     }
 
-    public Long getAccount_to() {
-        return account_to;
+    public Account getAccountTo() {
+        return accountTo;
     }
 
-    public void setAccount_to(Long account_to) {
-        this.account_to = account_to;
+    public void setAccountTo(Account accountTo) {
+        this.accountTo = accountTo;
     }
 
     public BigDecimal getAmount() {
@@ -70,5 +74,21 @@ public class Transfers {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public Long getAccountToId() {
+        return accountToId;
+    }
+
+    public void setAccountToId(Long accountToId) {
+        this.accountToId = accountToId;
+    }
+
+    public Long getAccountFromId() {
+        return accountFromId;
+    }
+
+    public void setAccountFromId(Long accountFromId) {
+        this.accountFromId = accountFromId;
     }
 }
