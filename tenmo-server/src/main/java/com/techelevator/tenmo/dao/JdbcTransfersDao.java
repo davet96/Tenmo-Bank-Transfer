@@ -24,23 +24,22 @@ public class JdbcTransfersDao implements TransfersDao{
     }
 
     @Override
-    public List<Transfers> getTransferHistory(Long transferId) {
-        List<Transfers> transfers= new ArrayList<>();
-        String sql = "Select * " +
-                "From transfers" +
-                "Join transfer_types ON transfer_type.transfer_type_id = transfers.transfer_type_id" +
-                "Join account_id ON accounts.account_id = transfers.account_from" +
-                "Join account_id ON accounts.account_id = transfers.account_to" +
-                "Where transfer_id = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferId);
-        while (results.next()){
-             Transfers newTransfers = mapRowTransfers(results);
-             transfers.add(newTransfers);
+    public List<Transfers> getTransferHistory(String username) {
+        List<Transfers> transfers = new ArrayList<>();
+        String sql = "SELECT t.transfer_id, t.transfer_type_id, t.transfer_status_id, t.account_from, t.account_to, t.amount " +
+                "FROM transfers t " +
+                "JOIN accounts a ON t.account_from = a.account_id " +
+                "JOIN users u ON a.user_id = u.user_id " +
+                "WHERE username = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,username);
+        if(results.next()) {
+            Transfers newTransfers = mapRowTransfers(results);
+            transfers.add(newTransfers);
         }
 
         return transfers;
-    }
 
+    }
     @Override
     public void sendBucks(Account accountFrom, Account accountTo, BigDecimal amount){
 
@@ -51,9 +50,8 @@ public class JdbcTransfersDao implements TransfersDao{
             accountDao.deposit(accountTo, amount);
             accountDao.withdraw(accountFrom, amount);
 
-        //System.out.println("Transfer of Funds is complete.");
-
     }
+
 
 
     private Transfers mapRowTransfers(SqlRowSet rs){

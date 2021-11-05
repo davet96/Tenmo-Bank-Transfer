@@ -92,11 +92,12 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-		try{
-		Transfers transfers = transfersService.getTransferHistory();
-	} catch (Exception e) {
-			System.out.println("Error with getting transfer history");
-		}
+//		try{
+		TransfersService transfer = new TransfersService(API_BASE_URL, currentUser);
+		transfer.getTransferHistory();
+//	} catch (Exception e) {
+//			System.out.println("Error with getting transfer history");
+////		}
     }
 
 	private void viewPendingRequests() {

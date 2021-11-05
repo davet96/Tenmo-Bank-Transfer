@@ -26,12 +26,17 @@ public class TransfersService {
         return entity;
     }
 
-    public Transfers getTransferHistory(){
-        Transfers transfers = null;
-             transfers = restTemplate.exchange( baseUrl + "transfers/" + currentUser.getUser().getUsername(), HttpMethod.GET, makeAuthEntity(), Transfers.class).getBody();
-            System.out.println("Your transfer history is: " + transfers.getTransferId());
+    public Transfers[] getTransferHistory(){
+        Transfers[] listOfTransfers = null;
+             listOfTransfers = restTemplate.exchange( baseUrl + "account/transfers/" + currentUser.getUser().getUsername(), HttpMethod.GET, makeAuthEntity(), Transfers[].class).getBody();
+            System.out.println("Your transfer history is: " + listOfTransfers);
+//            for(Transfers list : listOfTransfers){
+//                if(currentUser.getUser().getId().equals(list.getAccountFromId())){
+//                    System.out.println("whats up baller");
+//                }
+//            }
 
-                return transfers;
+                return listOfTransfers;
     }
 
     public void sendBucks(Transfers transfer){

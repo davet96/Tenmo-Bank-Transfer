@@ -10,7 +10,7 @@ import java.util.List;
 public interface TransfersDao {
 
 
-    public List<Transfers> getTransferHistory(Long transferId);
+    public List<Transfers> getTransferHistory(String username);
     public void sendBucks(Account accountFrom, Account accountTo, BigDecimal amount);
 
 }

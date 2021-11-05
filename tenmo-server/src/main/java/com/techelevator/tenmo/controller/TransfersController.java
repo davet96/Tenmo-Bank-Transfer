@@ -16,9 +16,9 @@ public class TransfersController {
 
     public TransfersController(TransfersDao dao){this.dao = dao;}
 
-    @RequestMapping(path = "transfers/{transfer_id}", method = RequestMethod.GET)
-    public List<Transfers>  getTransfers(@PathVariable Long transfer_id){
-        List<Transfers>  transfers  = dao.getTransferHistory(transfer_id);
+    @RequestMapping(path = "account/transfers/username", method = RequestMethod.GET)
+    public List<Transfers>  getTransfers(@PathVariable String username){
+        List<Transfers>  transfers  = dao.getTransferHistory(username);
     return transfers;}
 
     @RequestMapping(path = "transfers/make_transfer/", method = RequestMethod.POST)
