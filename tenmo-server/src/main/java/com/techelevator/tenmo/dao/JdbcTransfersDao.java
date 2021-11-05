@@ -24,23 +24,6 @@ public class JdbcTransfersDao implements TransfersDao{
     }
 
     @Override
-    public List<Transfers> getTransferHistory(String username) {
-        List<Transfers> transfers = new ArrayList<>();
-        String sql = "SELECT t.transfer_id, t.transfer_type_id, t.transfer_status_id, t.account_from, t.account_to, t.amount " +
-                "FROM transfers t " +
-                "JOIN accounts a ON t.account_from = a.account_id " +
-                "JOIN users u ON a.user_id = u.user_id " +
-                "WHERE username = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,username);
-        if(results.next()) {
-            Transfers newTransfers = mapRowTransfers(results);
-            transfers.add(newTransfers);
-        }
-
-        return transfers;
-
-    }
-    @Override
     public void sendBucks(Account accountFrom, Account accountTo, BigDecimal amount){
 
             String sql = "INSERT INTO transfers (transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
@@ -50,6 +33,41 @@ public class JdbcTransfersDao implements TransfersDao{
             accountDao.deposit(accountTo, amount);
             accountDao.withdraw(accountFrom, amount);
 
+    }
+
+    @Override
+    public List<Transfers> getAllTransfers(int userId) {
+        List<Transfers> list = new ArrayList<>();
+        String sql = "SELECT t.*, u.username AS userFrom, v.username AS userTo FROM transfers t " +
+                "JOIN accounts a ON t.account_from = a.account_id " +
+                "JOIN accounts b ON t.account_to = b.account_id " +
+                "JOIN users u ON a.user_id = u.user_id " +
+                "JOIN users v ON b.user_id = v.user_id " +
+                "WHERE a.user_id = ? OR b.user_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId, userId);
+        while (results.next() ) {
+            Transfers transfer = mapRowTransfers(results);
+            list.add(transfer);
+        }
+        return list;
+    }
+
+    @Override
+    public Transfers getTransferById(int transactionId) {
+        Transfers transfer = new Transfers();
+        String sql = "SELECT t.*, u.username AS userFrom, v.username AS userTo, ts.transfer_status_desc, tt.transfer_type_desc FROM transfers t " +
+                "JOIN accounts a ON t.account_from = a.account_id " +
+                "JOIN accounts b ON t.account_to = b.account_id " +
+                "JOIN users u ON a.user_id = u.user_id " +
+                "JOIN users v ON b.user_id = v.user_id " +
+                "JOIN transfer_statuses ts ON t.transfer_status_id = ts.transfer_status_id " +
+                "JOIN transfer_types tt ON t.transfer_type_id = tt.transfer_type_id " +
+                "WHERE t.transfer_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transactionId);
+        if (results.next()) {
+            transfer = mapRowTransfers(results);
+        }
+        return transfer;
     }
 
 

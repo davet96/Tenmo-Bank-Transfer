@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface TransfersDao {
 
-
-    public List<Transfers> getTransferHistory(String username);
     public void sendBucks(Account accountFrom, Account accountTo, BigDecimal amount);
+    public List<Transfers> getAllTransfers(int userId);
+    public Transfers getTransferById(int transactionId);
 
 }

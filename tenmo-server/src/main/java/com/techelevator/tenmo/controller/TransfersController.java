@@ -16,15 +16,22 @@ public class TransfersController {
 
     public TransfersController(TransfersDao dao){this.dao = dao;}
 
-    @RequestMapping(path = "account/transfers/username", method = RequestMethod.GET)
-    public List<Transfers>  getTransfers(@PathVariable String username){
-        List<Transfers>  transfers  = dao.getTransferHistory(username);
-    return transfers;}
+    @RequestMapping(value = "account/transfers/{id}", method = RequestMethod.GET)
+    public List<Transfers> getTransfers(@PathVariable int id) {
+        List<Transfers> output = dao.getAllTransfers(id);
+        return output;
+    }
 
     @RequestMapping(path = "transfers/make_transfer/", method = RequestMethod.POST)
     public void sendBucks(@RequestBody Transfers transfer ){
         dao.sendBucks(transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
 
+    }
+
+    @RequestMapping(path = "transfers/{id}", method = RequestMethod.GET)
+    public Transfers getTransferById(@PathVariable int id) {
+        Transfers transfer = dao.getTransferById(id);
+        return transfer;
     }
 
 

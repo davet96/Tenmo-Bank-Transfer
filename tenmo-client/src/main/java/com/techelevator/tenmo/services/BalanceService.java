@@ -45,7 +45,7 @@ public class BalanceService {
     }
 
     public List<Account> getListOfUserAccounts(){
-       Account[] getUserList = restTemplate.exchange(baseUrl + "accounts", HttpMethod.GET, makeAuthEntity(), Account[].class).getBody();
+       Account[] getUserList = restTemplate.exchange(baseUrl + "accounts/", HttpMethod.GET, makeAuthEntity(), Account[].class).getBody();
      return Arrays.asList(getUserList);
     }
 

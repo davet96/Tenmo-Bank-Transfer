@@ -94,7 +94,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		// TODO Auto-generated method stub
 //		try{
 		TransfersService transfer = new TransfersService(API_BASE_URL, currentUser);
-		transfer.getTransferHistory();
+		transfer.transfersList();
 //	} catch (Exception e) {
 //			System.out.println("Error with getting transfer history");
 ////		}

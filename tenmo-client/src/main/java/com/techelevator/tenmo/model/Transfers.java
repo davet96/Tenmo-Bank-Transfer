@@ -15,7 +15,6 @@ public class Transfers {
     private Account accountTo;
 
 
-
     public Transfers() {
     }
 
@@ -56,6 +55,9 @@ public class Transfers {
 
     public Long getAccount_from() {
         return accountFromId;
+    }
+    public Long getAccount_to() {
+        return accountToId;
     }
 
     public void setAccount_from(Long account_from) {
@@ -101,4 +103,5 @@ public class Transfers {
     public void setAccountTo(Account accountTo) {
         this.accountTo = accountTo;
     }
+
 }
